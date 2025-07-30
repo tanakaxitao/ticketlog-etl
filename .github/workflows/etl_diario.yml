@@ -2,6 +2,7 @@ name: Ticketlog ETL Diário
 
 on:
   schedule:
+    - cron: '0 11 * * *'  # 08h Brasília = 11h UTC
     - cron: '0 17 * * *'  # 14h Brasília = 17h UTC
   workflow_dispatch:       # Permite execução manual
 
