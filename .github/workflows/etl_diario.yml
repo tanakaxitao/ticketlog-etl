@@ -1,0 +1,40 @@
+name: Ticketlog ETL Diário
+
+on:
+  schedule:
+    - cron: '0 17 * * *'  # 14h Brasília = 17h UTC
+  workflow_dispatch:       # Permite execução manual
+
+jobs:
+  etl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout do código
+        uses: actions/checkout@v3
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: 🧪 Criar e ativar ambiente virtual
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🔐 Criar .env com segredos
+        run: |
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+          echo "AUTHORIZATION_TOKEN=${{ secrets.AUTHORIZATION_TOKEN }}" >> .env
+
+      - name: 🚀 Executar ETL
+        run: |
+          source venv/bin/activate
+          python main.py
