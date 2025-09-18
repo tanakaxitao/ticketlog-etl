@@ -106,7 +106,7 @@ def insert_transaction(cursor, transacao, codigo_cliente):
     ))
 
 def fetch_and_save_transactions():
-    start_date = datetime(2025, 9, 1)
+    start_date = datetime(2025, 15, 1)
     end_date = datetime.today()
     current_date = start_date
 
