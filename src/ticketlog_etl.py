@@ -106,8 +106,8 @@ def insert_transaction(cursor, transacao, codigo_cliente):
     ))
 
 def fetch_and_save_transactions():
-    start_date = datetime(2024, 9,1)
-    end_date = datetime(2025,1,1)
+    start_date = datetime(2025, 10,19)
+    end_date = datetime.now()
     current_date = start_date
 
     create_table()
